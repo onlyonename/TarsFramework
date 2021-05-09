@@ -1,3 +1,7 @@
 [submodule "thirdparty/rapidjson"]
 	path = thirdparty/rapidjson
 	url = https://github.com/Tencent/rapidjson.git
+[submodule "TarsCpp_anotate"]
+	path = TarsCpp_anotate
+	url = https://github.com/onlyonename/TarsCpp_anotate.git
+	branch = master
