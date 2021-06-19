@@ -22,6 +22,8 @@ using namespace tars;
 /**
  *  AdminRegistryServer Server
  */
+
+///负责和管理端交互的服务
 class AdminRegistryServer : public Application
 {
 protected:

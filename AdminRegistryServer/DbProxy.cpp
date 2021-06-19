@@ -1000,6 +1000,8 @@ int DbProxy::loadIPPhysicalGroupInfo()
 		TC_Mysql::MysqlData res;
 		{
 			MYSQL_LOCK;
+
+			///表t_server_group_rule一般为空
 			string sSql = "select group_id,ip_order,allow_ip_rule,denny_ip_rule,group_name from t_server_group_rule "
                       "order by group_id";
 			res = MYSQL_INDEX->queryRecord(sSql);
