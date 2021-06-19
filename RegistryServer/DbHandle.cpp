@@ -1460,6 +1460,8 @@ int CDbHandle::loadObjectIdCache(const bool bRecoverProtect, const int iRecoverP
 
 int CDbHandle::updateRegistryInfo2Db(bool bRegHeartbeatOff)
 {
+	///将配置信息更新到db
+
     if (bRegHeartbeatOff)
     {
         TLOGDEBUG("updateRegistryInfo2Db not need to update reigstry status !" << endl);

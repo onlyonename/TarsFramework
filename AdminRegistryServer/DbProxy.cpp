@@ -885,19 +885,21 @@ int DbProxy::getFramework(vector<tars::FrameworkServer> &servers)
 	try
 	{
 		MYSQL_LOCK;
+		///这里获取的是框架服务的信息，不包含tarsnode信息
 		string sSql = "select * from t_adapter_conf where application = 'tars'";
 
 		TC_Mysql::MysqlData data = MYSQL_INDEX->queryRecord(sSql);
 		for(size_t i = 0; i < data.size(); i++)
 		{
 			FrameworkServer server;
-			server.serverName   = data[i]["server_name"];
-			server.nodeName     = data[i]["node_name"];
+			server.serverName   = data[i]["server_name"]; ///如tarsproperty
+			server.nodeName     = data[i]["node_name"]; /// ip
 			server.objName      = data[i]["servant"] + "@" + data[i]["endpoint"];
 
 			servers.push_back(server);
 		}
 
+		///tarsnode信息传门维护在一个表里
 		sSql = "select * from t_node_info";
 		data = MYSQL_INDEX->queryRecord(sSql);
 		for(size_t i = 0; i < data.size(); i++)

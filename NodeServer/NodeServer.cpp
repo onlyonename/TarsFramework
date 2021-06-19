@@ -53,6 +53,9 @@ void NodeServer::initialize()
     TLOGDEBUG("NodeServer::initialize ServerAdapter " << (getAdapterEndpoint("ServerAdapter")).toString() << endl);
     TLOGDEBUG("NodeServer::initialize NodeAdapter "   << (getAdapterEndpoint("NodeAdapter")).toString() << endl);
 
+	///<NodeAdapter>
+    ///    endpoint=tcp -h 192.168.122.128 -p 19385 -t 60000
+    /// host为192.168.122.128，获取node服务器的ip
     g_sNodeIp = getAdapterEndpoint("NodeAdapter").getHost();
 
     if (!ServerFactory::getInstance()->loadConfig())
@@ -99,7 +102,8 @@ void NodeServer::initialize()
 
 void NodeServer::initRegistryObj()
 {
-    string sLocator =    Application::getCommunicator()->getProperty("locator");
+	///locator=tars.tarsregistry.QueryObj@tcp -h 192.168.122.128 -p 17890
+	string sLocator =    Application::getCommunicator()->getProperty("locator");
     vector<string> vtLocator = TC_Common::sepstr<string>(sLocator, "@");
     TLOGDEBUG("locator:" << sLocator << endl);
     if (vtLocator.size() == 0)
@@ -123,6 +127,7 @@ void NodeServer::initRegistryObj()
         sObjPrefix = vObj[2].substr(0, pos);
     }
 
+	///将主控信息保存到AdminProxy里
     AdminProxy::getInstance()->setRegistryObjName("tars.tarsregistry." + sObjPrefix + "RegistryObj",
                                                   "tars.tarsregistry." + sObjPrefix + "QueryObj");
 
@@ -134,6 +139,15 @@ void NodeServer::initHashMap()
 {
     TLOGDEBUG("NodeServer::initHashMap " << endl);
 
+	/*
+	<hashmap>
+	  file=serversCache.dat
+	  minBlock=500
+	  maxBlock=500
+	  factor=1
+	  size=10M
+	</hashmap>
+	*/
     string sFile        = ServerConfig::DataPath + FILE_SEP + g_pconf->get("/tars/node/hashmap<file>", "__tarsnode_servers");
     string sPath        = TC_File::extractFilePath(sFile);
     int iMinBlock       = TC_Common::strto<int>(g_pconf->get("/tars/node/hashmap<minBlock>", "500"));

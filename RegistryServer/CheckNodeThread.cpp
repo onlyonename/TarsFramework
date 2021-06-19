@@ -76,8 +76,7 @@ void CheckNodeThread::run()
 			
                 tLastCheckNode = tNow;
 				
-                _db.checkNodeTimeout(_nodeTimeout);
-
+                _db.checkNodeTimeout(_nodeTimeout); ///通过db互相交互
             }
 
             TC_ThreadLock::Lock lock(*this);

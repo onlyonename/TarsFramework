@@ -61,6 +61,7 @@ public:
      * @param nodeName : node id
      * @return :  对象代理的智能指针
      */
+	///获取tarsnode的代理
     NodePrx getNodePrx(const string & nodeName);
 
     /**

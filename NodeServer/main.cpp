@@ -35,6 +35,17 @@ void monitorNode(const string &configFile)
     conf.parseFile(configFile);
     CommunicatorPtr c = new Communicator();
 
+	/*
+	<ServerAdapter>
+		endpoint=tcp -h 10.233.64.6 -p 19386 -t 60000
+		allow
+		maxconns=1024
+		threads=5
+		queuecap=10000
+		queuetimeout=4000
+		servant=tars.tarsnode.ServerObj
+	</ServerAdapter>
+	*/
     string serverObj = "tars.tarsnode.ServerObj@" + conf["/tars/application/server/ServerAdapter<endpoint>"];
     ServerFPrx sprx = c->stringToProxy<ServerFPrx>(serverObj);
     unsigned int latestKeepAliveTime = sprx->tars_set_timeout(2000)->getLatestKeepAliveTime();
