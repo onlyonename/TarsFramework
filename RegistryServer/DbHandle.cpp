@@ -833,6 +833,8 @@ int CDbHandle::checkRegistryTimeout(unsigned uTimeout)
 {
     try
     {
+		///t_registry_info只包含tarsAdminRegistry和tarsregistry的servant信息
+	
         string sSql = "update t_registry_info "
                       "set present_state='inactive' "
                       "where last_heartbeat < date_sub(now(), INTERVAL " + TC_Common::tostr(uTimeout) + " SECOND)";
@@ -983,6 +985,8 @@ int CDbHandle::loadIPPhysicalGroupInfo(bool fromInit)
     TC_Mysql::MysqlData res;
     try
     {
+		///此表一般为空t_server_group_rule
+	
         string sSql = "select group_id,ip_order,allow_ip_rule,denny_ip_rule,group_name from t_server_group_rule "
                       "order by group_id";
 
@@ -1044,7 +1048,8 @@ int CDbHandle::loadGroupPriority(bool fromInit)
     mapPriority.clear();
     try
     {
-        std::string s_command("SELECT id,group_list,station FROM t_group_priority ORDER BY list_order ASC");
+		///t_group_priority表一般为空
+		std::string s_command("SELECT id,group_list,station FROM t_group_priority ORDER BY list_order ASC");
 
         TC_Mysql::MysqlData res = _mysqlReg.queryRecord(s_command);
         TLOGDEBUG("CDbHandle::loadGroupPriority load group priority from db, records affected:" << res.size() << endl);
@@ -1247,6 +1252,10 @@ int CDbHandle::loadObjectIdCache(const bool bRecoverProtect, const int iRecoverP
             //加载城市信息
             loadGroupPriority(fromInit);
         }
+
+		///t_adapter_conf所有bindadapter信息,以adapter维度
+		///t_server_conf所有server信息,以server为维度
+		///一个server可以有多个adapter
 
         //加载存活server及registry列表信息
         string sSql1 =
