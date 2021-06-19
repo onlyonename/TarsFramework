@@ -37,7 +37,7 @@ using namespace tars;
 //////////////////////////////////////////////////////
 
 //<servant, ObjectItem>
-typedef map<string, ObjectItem> ObjectsCache;
+typedef map<string, ObjectItem> ObjectsCache;///key为servant名
 typedef TarsHashMap<ObjectName, ObjectItem, ThreadLockPolicy, FileStorePolicy> FileHashMap;
 
 //_mapServantStatus的key

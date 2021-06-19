@@ -421,6 +421,8 @@ string CDbHandle::getProfileTemplate(const string& sTemplateName, map<string, in
 {
     try
     {
+		///所有模板信息
+	
         string sSql = "select template_name, parents_name, profile from t_profile_template "
                       "where template_name='" + _mysqlReg.escapeString(sTemplateName) + "'";
 
@@ -760,6 +762,8 @@ NodePrx CDbHandle::getNodePrx(const string& nodeName)
             return _mapNodePrxCache[nodeName];
         }
 
+		///所有tars_node结点信息,有可能部署多台机器
+		///nodeName一般为ip
         string sSql = "select node_obj "
                       "from t_node_info "
                       "where node_name='" + _mysqlReg.escapeString(nodeName) + "' and present_state='active'";
@@ -860,6 +864,7 @@ int CDbHandle::checkSettingState(const int iCheckLeastChangedTime)
     {
         TLOGDEBUG("CDbHandle::checkSettingState ____________________________________" << endl);
 
+		///一般用不到tars_dns服务,配置里没有这种记录
         string sSql = "select application, server_name, node_name, setting_state "
                       "from t_server_conf "
                       "where setting_state='active' "  //检查应当启动的

@@ -66,6 +66,8 @@ protected:
     /*
      * 用于执行定时操作的线程对象
      */
+
+	/// 这几个线程，都是通过操作db来实现相应行为
     ReapThread             _reapThread;             //全量和增量加载路由信息的线程
 
     CheckNodeThread        _checkNodeThread;        //监控tarsnode超时的线程
