@@ -26,6 +26,8 @@
 using namespace tars;
 using namespace std;
 
+///总体上看，此servant主要用于keepalive保活用的
+
 class ServerImp : public ServerF
 {
 public:
@@ -61,6 +63,8 @@ public:
     /**
      * 上报心跳
      */
+
+	///用于tars业务服务，向tarsnode上报心跳
     virtual int keepAlive( const tars::ServerInfo& serverInfo, tars::TarsCurrentPtr current ) ;
 
     /**
