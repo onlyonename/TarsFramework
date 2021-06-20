@@ -30,6 +30,7 @@ using namespace std;
 
 class AdminProxy;
 
+///主控代理
 class AdminProxy : public TC_Singleton<AdminProxy>
 {
 public:

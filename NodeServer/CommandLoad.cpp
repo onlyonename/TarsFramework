@@ -294,7 +294,8 @@ int CommandLoad::updateConfigFile(string& sResult)
             QueryFPrx queryProxy = AdminProxy::getInstance()->getQueryProxy();
              try
             {
-                iRet = queryProxy->findObjectById4All(AdminProxy::getInstance()->getQueryProxyName(), activeEp, inactiveEp);
+				///查询主控,获取所有主控结点
+				iRet = queryProxy->findObjectById4All(AdminProxy::getInstance()->getQueryProxyName(), activeEp, inactiveEp);
                 NODE_LOG("KeepAliveThread")->debug() << "CommandLoad::updateConfigFile " << _serverObjectPtr->getServerId() << "|iRet|" << iRet << "|" << activeEp.size() << "|" << inactiveEp.size() << endl;
             }
             catch (exception& e)
