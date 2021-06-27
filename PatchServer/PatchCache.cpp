@@ -118,7 +118,8 @@ int PatchCache::load(const std::string & sFile, std::pair<char *, size_t> & mem)
         TLOGERROR("PatchCache::load sFile:" << sFile << "|unknown Exception" << endl);
         return -1;
     }
-    
+
+	///将文件内容存入内存
     if (__loadFile(sFile, cur->MemBuf, cur->FileSize) == 0)
     {
         cur->MemCount++;
@@ -169,6 +170,8 @@ int PatchCache::release(const std::string & sFile)
     return -1;
 }
 
+
+///获取一块内存描述符(块)
 int PatchCache::__getMem(const std::string & sFile, struct MemState *& cur)
 {
     TLOGDEBUG("PatchCache::__getMem sFile:" << sFile << endl);
@@ -181,7 +184,8 @@ int PatchCache::__getMem(const std::string & sFile, struct MemState *& cur)
 
         TLOGDEBUG("PatchCache::__getMem sFile:" << sFile << "|MemLoad:"<<st->MemLoad << "|MemCount:" << st->MemCount << "|MemTime:" << st->MemTime << "|FileName:" << st->FileName << endl);
 
-        if ((st->MemLoad == EM_NLOAD || st->MemLoad == EM_LOADED) && st->MemCount == 0 && st->MemTime + g_app.getExpireTime() <= time(NULL))
+		///找一块过期的没有被引用的内存
+		if ((st->MemLoad == EM_NLOAD || st->MemLoad == EM_LOADED) && st->MemCount == 0 && st->MemTime + g_app.getExpireTime() <= time(NULL))
         {
             _mapFiles.erase(_vecMems[i]->FileName);
 
