@@ -24,6 +24,8 @@ using namespace tars;
 
 int PatchCache::load(const std::string & sFile, std::pair<char *, size_t> & mem)
 {
+	///mem pair结构的第一个参数为内存地址,第2个为文件大小
+
     TLOGDEBUG("PatchCache::load sFile:" << sFile << endl);
 
     struct MemState * cur = NULL;
